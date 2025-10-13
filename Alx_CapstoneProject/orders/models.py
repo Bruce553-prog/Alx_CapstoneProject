@@ -12,6 +12,11 @@ class Order(models.Model):
         ("delivered", "Delivered"), 
     ], default="pending")
 
+    
+    def get_total_price(self):
+        total = sum(item.product.price * item.quantity for item in self.items.all())
+        return total
+
     def __str__(self): 
         return f"Order {self.id} by {self.customer.username}"
 
